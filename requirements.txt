@@ -4,9 +4,9 @@ torchvision>=0.15.0
 torchaudio>=2.0.0
 
 # === Hugging Face Ecosystem ===
-transformers>=4.40.1
+transformers==4.44.2
 datasets>=2.19.0
-accelerate>=0.31.0
+accelerate==0.34.2
 evaluate>=0.4.0
 
 # === Image Processing & Augmentation ===
