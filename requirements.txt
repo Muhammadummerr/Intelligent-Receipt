@@ -1,0 +1,28 @@
+# === Core Deep Learning ===
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# === Hugging Face Ecosystem ===
+transformers>=4.40.1
+datasets>=2.19.0
+accelerate>=0.31.0
+evaluate>=0.4.0
+
+# === Image Processing & Augmentation ===
+Pillow>=10.0.0
+albumentations>=1.4.4
+opencv-python>=4.9.0
+
+# === Data Science Utilities ===
+numpy>=1.26.4
+pandas>=2.2.0
+tqdm>=4.66.2
+
+# === Logging / Visualization (optional) ===
+rich>=13.7.1
+ipywidgets>=8.1.1
+matplotlib>=3.8.0
+
+# === Safety ===
+python-dotenv>=1.0.1
