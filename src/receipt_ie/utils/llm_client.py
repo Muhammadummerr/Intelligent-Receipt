@@ -19,7 +19,7 @@ import logging
 from typing import Literal, Optional
 
 # ----------------------------
-# Environment & Secrets Handling
+# Environment & Secrets Handling (Kaggle + Local safe)
 # ----------------------------
 try:
     from kaggle_secrets import UserSecretsClient
@@ -31,17 +31,18 @@ try:
 except ImportError:
     load_dotenv = None
 
-# Detect if running on Kaggle
 IN_KAGGLE = "KAGGLE_KERNEL_RUN_TYPE" in os.environ
 
-# Load secrets appropriately
 if IN_KAGGLE and UserSecretsClient:
     user_secrets = UserSecretsClient()
-    os.environ["OPENAI_API_KEY"] = user_secrets.get_secret("OPENAI_API_KEY") or ""
-    os.environ["HUGGINGFACEHUB_API_TOKEN"] = user_secrets.get_secret("HUGGINGFACEHUB_API_TOKEN") or ""
-    os.environ["GROQ_API_KEY"] = user_secrets.get_secret("GROQ_API_KEY") or ""
+    for key in ["OPENAI_API_KEY", "HUGGINGFACEHUB_API_TOKEN", "GROQ_API_KEY"]:
+        try:
+            os.environ[key] = user_secrets.get_secret(key) or os.environ.get(key, "")
+        except Exception:
+            # Skip silently if secret label does not exist
+            os.environ[key] = os.environ.get(key, "")
 elif load_dotenv:
-    load_dotenv()  # Local development fallback
+    load_dotenv()  # Fallback for local .env
 
 # ----------------------------
 # Optional Provider Imports
