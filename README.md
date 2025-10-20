@@ -239,7 +239,8 @@ Adjust dataset paths (for receipt-dataset and watermark-dataset) as per your env
 
 ## 🎥 Demo  
 
-[![Watch the Demo](https://img.shields.io/badge/▶%20Watch-Demo-blue?style=for-the-badge)](https://github.com/Muhammadummerr/Intelligent-Receipt/blob/main/assets/demo.mp4)
+[![Watch the Demo](https://img.shields.io/badge/▶%20Watch-Demo-blue?style=for-the-badge)](https://github.com/Muhammadummerr/Intelligent-Receipt/raw/main/assets/demo.mp4)
+
 
 > 🕒 Duration: 42 seconds  
 > 📍 Shows: LayoutLMv3 + ViT + LLM reasoning end-to-end inference
