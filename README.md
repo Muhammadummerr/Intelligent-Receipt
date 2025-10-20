@@ -35,7 +35,7 @@ Receipt Image
    │        └── Validates and corrects structured fields
    │
    └──► Final JSON Output
-
+```
 ---
 
 ## 📦 Datasets Used
@@ -155,7 +155,7 @@ Example output:
   "date": "15/01/2019",
   "address": "JALAN HARMONI 3/2, TAMAN DESA HARMONI, 81100 JOHOR BAHRU",
   "total": "45.80",
-  "agent_comment": "Validated and normalized fields using OCR and LLM reasoning."
+  "agent_comment": "Validated and normalized fields using OCR."
 }
 
 🧩 Project Structure
