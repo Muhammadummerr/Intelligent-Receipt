@@ -1,0 +1,41 @@
+# === Python cache ===
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# === Environment / IDE ===
+.venv/
+env/
+.vscode/
+.idea/
+
+# === Temporary / Log files ===
+*.log
+*.tmp
+*.bak
+
+
+
+# === Model weights & large artifacts ===
+*.pt
+*.bin
+*.ckpt
+*.h5
+*.onnx
+
+# === Data folders (large datasets not in repo) ===
+data/raw/
+data/processed/
+data/samples/
+models/pretrained/
+
+# === Hugging Face / Torch cache ===
+~/.cache/
+hf_cache/
+hf_home/
+hf_models/
+
+# === System files ===
+.DS_Store
+Thumbs.db
