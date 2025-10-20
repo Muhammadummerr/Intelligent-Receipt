@@ -44,6 +44,8 @@ link: https://unikrew-my.sharepoint.com/:u:/p/uzair_mughal/Eco5MROMYQlHm2mGgAD2P
 
 Watermark-dataset → Custom-created by blurring or overlaying different regions of real receipts.
 link: https://drive.google.com/drive/folders/1JVLB1lK9vLtUr_VkuxvYq7zauB1MB1RT?usp=drive_link
+
+
 Note:
 For real-world use, watermark types can be extended to include multiple tampering and forgery styles and increasing the dataset size.
 
@@ -149,68 +151,68 @@ Once both models are trained and uploaded, run:
 ```
 
 Example output:
+```
 
-{
-  "company": "CHAY SEAFOOD RESTAURANT",
-  "date": "15/01/2019",
-  "address": "JALAN HARMONI 3/2, TAMAN DESA HARMONI, 81100 JOHOR BAHRU",
-  "total": "45.80",
-  "agent_comment": "Validated and normalized fields using OCR."
-}
+    {
+    "company": "CHAY SEAFOOD RESTAURANT",
+    "date": "15/01/2019",
+    "address": "JALAN HARMONI 3/2, TAMAN DESA HARMONI, 81100 JOHOR BAHRU",
+    "total": "45.80",
+    "agent_comment": "Validated and normalized fields using OCR."
+    }
 
+```
 🧩 Project Structure
+
+```
    
-+---configs
-+---data
-ª   +---processed
-ª   +---raw
-ª   +---samples
-+---models
-ª   +---pretrained
-+---notebooks
-ª       intelligent-receipt-pipeline.ipynb    ← main training & inference notebook
-ª       
-+---src
-ª   +---receipt_ie
-ª       +---data
-ª       ª       boxes.py
-ª       ª       dataset_infer.py
-ª       ª       text.py
-ª       ª       __init__.py
-ª       ª       
-ª       +---infer
-ª       +---models
-ª       ª   +---training
-ª       ª   ª   ª   train_layoutlmv3.py
-ª       ª   ª   ª   __init__.py
-ª       ª   ª   ª   
-ª       ª   ª   +---helpers
-ª       ª   ª           augmentations.py
-ª       ª   ª           data_utils.py
-ª       ª   ª           entity_utils.py
-ª       ª   ª           
-ª       ª   +---watermark
-ª       ª       ª   augment_watermark_dataset.py
-ª       ª       ª   train_vit_watermark_classifier.py
-ª       ª       ª   __init__.py
-ª       ª       ª   
-ª       ª       +---utils
-ª       ª               watermark_filter.py
-ª       ª               wm_dataset.py
-ª       ª               wm_data_utils.py
-ª       ª               __init__.py
-ª       ª               
-ª       +---pipelines
-ª       ª       run_pipeline.py
-ª       ª       __init.py
-ª       ª       
-ª       +---utils
-ª               decode.py
-ª               llm_client.py
-ª               postproc.py
-ª               __init__.py
-ª               
-+---tests
+    +---assets
+    ª   +---demo.mp4
+    +---notebooks
+    ª       intelligent-receipt-pipeline.ipynb    ← main training & inference notebook    
+    +---src
+    ª   +---receipt_ie
+    ª       +---data
+    ª       ª       boxes.py
+    ª       ª       dataset_infer.py
+    ª       ª       text.py
+    ª       ª       __init__.py
+    ª       +---models
+    ª       ª   +---training
+    ª       ª   ª   ª   train_layoutlmv3.py
+    ª       ª   ª   ª   __init__.py
+    ª       ª   ª   ª   
+    ª       ª   ª   +---helpers
+    ª       ª   ª           augmentations.py
+    ª       ª   ª           data_utils.py
+    ª       ª   ª           entity_utils.py
+    ª       ª   ª           
+    ª       ª   +---watermark
+    ª       ª       ª   augment_watermark_dataset.py
+    ª       ª       ª   train_vit_watermark_classifier.py
+    ª       ª       ª   __init__.py
+    ª       ª       ª   
+    ª       ª       +---utils
+    ª       ª               watermark_filter.py
+    ª       ª               wm_dataset.py
+    ª       ª               wm_data_utils.py
+    ª       ª               __init__.py
+    ª       ª               
+    ª       +---pipelines
+    ª       ª       run_pipeline.py
+    ª       ª       __init.py
+    ª       ª       
+    ª       +---utils
+    ª               decode.py
+    ª               llm_client.py
+    ª               postproc.py
+    ª               __init__.py
+
+```
+
+---
+
+
 
 
 ## 📈 Results:
@@ -237,14 +239,16 @@ Adjust dataset paths (for receipt-dataset and watermark-dataset) as per your env
 
 ## 🎥 Demo  
 
-<video src="assets/demo.mp4" width="640" controls></video>
+[![Watch the Demo](https://img.shields.io/badge/▶%20Watch-Demo-blue?style=for-the-badge)](https://github.com/Muhammadummerr/Intelligent-Receipt/blob/main/assets/demo.mp4)
 
 > 🕒 Duration: 42 seconds  
 > 📍 Shows: LayoutLMv3 + ViT + LLM reasoning end-to-end inference
 
----
-## 👤 Author
 
-Muhammad Umer Farooq
-🎓 Bachelor’s in Computer Science — Namal University
-📚 Research Focus: Computer Vision, Document AI, and LLM Reasoning
+---
+## 👤 Author  
+
+**Muhammad Umer Farooq**  
+🎓 Bachelor’s in Computer Science — Namal University  
+📚 Research Focus: Computer Vision, Document AI, and LLM Reasoning  
+
