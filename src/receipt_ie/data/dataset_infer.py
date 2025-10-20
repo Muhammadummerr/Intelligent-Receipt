@@ -19,7 +19,7 @@ from typing import List, Optional, Dict
 from PIL import Image, UnidentifiedImageError
 from transformers import LayoutLMv3Processor
 from .boxes import parse_box_file, sort_reading_order
-from ..utils.text import split_tokens
+from .text import split_tokens
 
 
 IMG_EXTS = [".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"]
