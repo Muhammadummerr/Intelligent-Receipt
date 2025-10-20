@@ -68,10 +68,11 @@ def safe_json_loads(text: str) -> Dict[str, Any]:
 # ===================== PROMPT BUILDER =====================
 def build_reasoning_prompt(ocr_text: str, extracted: Dict[str, Any]) -> str:
     """
-    Optimized reasoning prompt for robust, deterministic receipt correction.
-    - Ensures high precision for structured extraction.
-    - Strengthens watermark/tamper detection reasoning.
-    - Uses hierarchical instructions + verified few-shot examples.
+    Enhanced reasoning prompt for robust, deterministic receipt correction.
+    Improvements:
+    - Loosens over-aggressive rejection rules (only rejects with clear textual watermark evidence)
+    - Clarifies acceptance of partially unclear receipts
+    - Keeps deterministic JSON output with strong field extraction instructions
     """
     return f"""
 You are a **Receipt Intelligence Agent**.
@@ -97,21 +98,28 @@ You are given two inputs:
 Your job:
 1. Correct or fill in any missing fields using clues in OCR_TEXT.  
 2. **Do not modify any field already correct in EXTRACTED_JSON.**  
-3. If any sign of watermark, tampering, or heavy occlusion exists → **reject the receipt**.  
-   (Return all fields empty with an appropriate agent_comment.)
+3. If the text clearly shows the receipt is fake or watermarked, reject it.  
+   (Return all fields empty with an appropriate agent_comment.)  
+
+If the receipt text looks real but is partially unclear or noisy, fill in only the fields you can confirm.
+Do **not** reject such receipts — just leave uncertain fields blank.
 
 ---
 
 ### REJECTION RULES (Watermark / Tampered Receipt)
-Reject if **any** of the following are detected in OCR_TEXT:
-- Contains words like “sample”, “confidential”, “training”, “void”, “demo”, “watermark”, “practice”, “fake”, or “test”.
-- Mentions text overlays such as “NOT FOR SALE”, “COPY”, or “FOR TRAINING USE”.
-- Appears to have black bars, blurred text areas, or unrelated overlays covering printed content.
+Reject **only** if there is clear textual evidence in OCR_TEXT, such as:
+- Contains explicit terms like: "sample", "training", "for testing", "demo", "practice", "fake", "not for sale", "void", or "watermark" (case-insensitive).
+- Contains strong watermark indicators like: "COPY", "FOR TRAINING USE ONLY", or "DUPLICATE RECEIPT".
+
+⚠️ Do **not** reject receipts simply because:
+- The text is incomplete or partially unreadable.
+- There are missing lines, faint print, or minor OCR artifacts.
+- The total or address is missing.
 
 On rejection, return:
 {{
   "company": "", "date": "", "address": "", "total": "",
-  "agent_comment": "Receipt rejected — detected watermark, tampering, or obstructed text ('<term>')."
+  "agent_comment": "Receipt rejected — detected watermark or explicit tampering indicator ('<term>')."
 }}
 
 ---
@@ -154,7 +162,7 @@ OUTPUT:
   "date": "30/05/2018",
   "address": "NO.1, TAMAN SRI DENGKIL, JALAN AIR HITAM 43800 DENGKIL, SELANGOR.",
   "total": "87.45",
-  "agent_comment": "Extracted all fields directly from labeled OCR lines."}}
+  "agent_comment": "Extracted all fields directly from OCR text."}}
 
 ---
 
@@ -175,7 +183,7 @@ OUTPUT:
   "date": "06/01/2018",
   "address": "NO 3, JALAN PERMAS 10/8, BANDAR BARU PERMAS JAYA, 81750 MASAI, JOHOR",
   "total": "10.30",
-  "agent_comment": "Added company and address from OCR context; preserved date and total."}}
+  "agent_comment": "Added company and address from OCR text; preserved date and total."}}
 
 ---
 
@@ -192,14 +200,14 @@ EXTRACTED_JSON:
 
 OUTPUT:
 {{"company": "", "date": "", "address": "", "total": "",
-  "agent_comment": "Receipt rejected — detected watermark text ('SAMPLE / TRAINING')."}}
+  "agent_comment": "Receipt rejected — detected watermark term ('SAMPLE / TRAINING')."}}
 
 ---
 
 ### TASK
 Now, analyze the provided OCR_TEXT and EXTRACTED_JSON.
 If the receipt is valid, return the corrected JSON.
-If it is tampered/watermarked, return an empty JSON with a clear agent_comment reason.
+If it is tampered or contains explicit watermark terms, return an empty JSON with a clear agent_comment reason.
 """.strip()
 
 
