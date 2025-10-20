@@ -249,12 +249,22 @@ def run_layoutlmv3_extraction(image_path: str, model_dir: str, box_dir: str) -> 
     )
     item = ds[0]
     with torch.no_grad():
+        # Ensure matching sequence lengths between inputs and masks
+        seq_len = min(
+            item["input_ids"].shape[0],
+            item["bbox"].shape[0],
+            item["attention_mask"].shape[0],
+        )
+        for key in ["input_ids", "bbox", "attention_mask"]:
+            item[key] = item[key][:seq_len]
+
         outputs = model(
             input_ids=item["input_ids"].unsqueeze(0).to(device),
             bbox=item["bbox"].unsqueeze(0).to(device),
             pixel_values=item["pixel_values"].unsqueeze(0).to(device),
             attention_mask=item["attention_mask"].unsqueeze(0).to(device),
         )
+
     pred_ids = outputs.logits.argmax(-1).squeeze(0).cpu().tolist()
 
     id2label = {int(k): v for k, v in model.config.id2label.items()}
