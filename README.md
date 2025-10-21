@@ -40,7 +40,7 @@ Receipt Image
 
 ## 📦 Datasets Used
 Receipt-dataset 
-link: → (Provided by the Unikrew Solution)
+link: → (Provided by the company)
 
 Watermark-dataset → Custom-created by blurring or overlaying different regions of real receipts.
 link: https://drive.google.com/drive/folders/1JVLB1lK9vLtUr_VkuxvYq7zauB1MB1RT?usp=drive_link
